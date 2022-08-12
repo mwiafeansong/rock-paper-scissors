@@ -42,14 +42,22 @@ function playRound(playerSelection, computerSelection){
 }
 
 function game() {
-    const playerSelection = prompt("Rock, Paper or Scissors?");
+    const choices = document.querySelectorAll('.icons buttons');
     const computerSelection = getComputerChoice();
-
-    console.log(playRound(playerSelection, computerSelection));
-
+    const result = document.querySelector('.final-result');
+    const yourScore = document.querySelector('.your-score');
+    const compScore = document.querySelector('.computer-score');
+    
+    choices.forEach((choice) => {
+        choice.addEventListener('click', () => {
+            result.textContent = playRound(choice.className, computerSelection);
+    })});
+    compScore.textContent = computerScore.toString();
+    yourScore.textContent = playerScore.toString();
 }
+    
 
-for (let i = 0; i < 5; i++){
+while (playerScore < 5 && computerScore < 5){
     game();
     console.log(`Computer score: ${computerScore}`);
     console.log(`Your score: ${playerScore}`);

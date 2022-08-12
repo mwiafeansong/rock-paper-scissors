@@ -5,9 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    
+    <header id="header">
+      <h2>ROCK</h2>
+      <h2>PAPER</h2>
+      <h2>SCISSORS</h2>
+    </header>
 
+    <main class="container">
+      <section class="icons">
+        <button class="rock"><img src="images/hand rock.png" placeholder="rock"></button>
+        <button class="paper"><img src="images/hand paper.png" placeholder="paper"></button>
+        <button class="scissors"><img src="images/hand scissors.png" placeholder="scissors"></button>
+      </section>
+
+      <section class="scores">
+        <div class="your-score">
+          <label>Your score:</label>
+          <button class="btn player-score"></button>
+        </div>
+        <div class="comp-score">
+          <label>Computer's score:</label>
+          <button class="btn computer-score"></button>
+        </div>
+      </section>
+
+      <section class="results">
+        <button class="btn final-results"></button>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; Copyright 2022 mwiafeansong</p>
+      <p>Icons from <a href="https://icons8.com" target="_blank">icons8</a></p>
+    </footer>
+
+
+    <script src="script.js"></script>
   </body>
 </html>

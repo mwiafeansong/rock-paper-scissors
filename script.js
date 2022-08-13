@@ -3,10 +3,11 @@ let playerScore = 0;
 let computerSelection;
 let playerSelection;
 
-const choices = document.querySelectorAll('.icons button');
+const choices = document.querySelectorAll('.icons img');
 const result = document.querySelector('.final-results');
 const yourScore = document.querySelector('.player-score');
 const compScore = document.querySelector('.computer-score');
+const replayBtn = document.querySelector('.replay')
 
 function getComputerChoice(){
     let choice = Math.floor(Math.random() * 3);
@@ -49,12 +50,13 @@ function playRound(playerSelection, computerSelection){
 }
 
 for (const choice of choices) {
-    choice.addEventListener('click', playGame);       
+    choice.addEventListener('click', playGame);     
 }
 
 function playGame(e) {
     playerSelection = e.target.id;
     computerSelection = getComputerChoice();
+    e.target.classList.add('clicked');
     playRound(playerSelection, computerSelection);
     if (playerScore >=5 || computerScore >= 5) {
         if (playerScore < computerScore) {
@@ -72,6 +74,8 @@ function playGame(e) {
         }
     }
 }
+
+replayBtn.addEventListener('click', () => {document.location.reload()});
 
 
 

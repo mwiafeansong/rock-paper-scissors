@@ -1,74 +1,87 @@
 let computerScore = 0;
 let playerScore = 0;
+let computerSelection;
+let playerSelection;
+
+const choices = document.querySelectorAll('.icons button');
+const result = document.querySelector('.final-results');
+const yourScore = document.querySelector('.player-score');
+const compScore = document.querySelector('.computer-score');
 
 function getComputerChoice(){
     let choice = Math.floor(Math.random() * 3);
     switch (choice) {
         case 0: 
-            return 'ROCK';
+            return 'rock';
             break;
         case 1:
-            return 'PAPER';
+            return 'paper';
             break;
         case 2:
-            return 'SCISSORS';
+            return 'scissors';
     }
 }
 
 
 function playRound(playerSelection, computerSelection){
     
-    if (playerSelection.toUpperCase() === computerSelection){
-        computerScore++;
-        playerScore++;
-        return 'Tie';
+    if (playerSelection === computerSelection){
+        compScore.textContent = ++computerScore;
+        yourScore.textContent = ++playerScore;
+        result.textContent = 'Tied!';
     }
-    else if (computerSelection === 'ROCK' && playerSelection.toUpperCase() == 'PAPER'){
-        playerScore++;
-        return 'You win! PAPER beats ROCK';
+    else if (computerSelection === 'rock' && playerSelection === 'paper'){
+        yourScore.textContent = ++playerScore;
+        result.textContent = 'You win! PAPER beats ROCK';
     }
-    else if (computerSelection === 'PAPER' && playerSelection.toUpperCase() == 'SCISSORS'){
-        playerScore++;
-        return 'You win! SCISSORS beats PAPER';
+    else if (computerSelection === 'paper' && playerSelection === 'scissors'){
+        yourScore.textContent = ++playerScore;
+        result.textContent = 'You win! SCISSORS beats PAPER';
     }
-    else if (computerSelection === 'SCISSORS' && playerSelection.toUpperCase() == 'ROCK'){
-        playerScore++;
-        return 'You win! ROCK beats SCISSORS';
+    else if (computerSelection === 'scissors' && playerSelection === 'rock'){
+        yourScore.textContent = ++playerScore;
+        result.textContent = 'You win! ROCK beats SCISSORS';
     }
     else {
-        computerScore++;
-        return `You lose! ${computerSelection} beats ${playerSelection}`
+        compScore.textContent = ++computerScore;
+        result.textContent = `You lose! ${computerSelection.toUpperCase()} beats ${playerSelection.toUpperCase()}`
     }
 }
 
-function game() {
-    const choices = document.querySelectorAll('.icons buttons');
-    const computerSelection = getComputerChoice();
-    const result = document.querySelector('.final-result');
-    const yourScore = document.querySelector('.your-score');
-    const compScore = document.querySelector('.computer-score');
-    
-    choices.forEach((choice) => {
-        choice.addEventListener('click', () => {
-            result.textContent = playRound(choice.className, computerSelection);
-    })});
-    compScore.textContent = computerScore.toString();
-    yourScore.textContent = playerScore.toString();
-}
-    
-
-while (playerScore < 5 && computerScore < 5){
-    game();
-    console.log(`Computer score: ${computerScore}`);
-    console.log(`Your score: ${playerScore}`);
+for (const choice of choices) {
+    choice.addEventListener('click', playGame);       
 }
 
-if (computerScore > playerScore){
-    console.log("Sorry. Better luck next time");
+function playGame(e) {
+    playerSelection = e.target.id;
+    computerSelection = getComputerChoice();
+    playRound(playerSelection, computerSelection);
+    if (playerScore >=5 || computerScore >= 5) {
+        if (playerScore < computerScore) {
+            result.style.cssText = 'color: magenta; font-size: 19px; font-weight: bold;';
+            result.textContent = 'YOU LOST. Better luck next time';
+        } else if (playerScore > computerScore) {
+            result.style.cssText = 'color: magenta; font-size: 19px; font-weight: bold;';
+            result.textContent = 'YOU WON!';
+        } else {
+            result.style.cssText = 'color: magenta; font-size: 19px; font-weight: bold;';
+            result.textContent = 'YOU TIED WITH COMPUTER';
+        }
+        for (const choice of choices) {
+            choice.removeEventListener('click', playGame);
+        }
+    }
 }
-else if (computerScore < playerScore){
-    console.log("WINNER!")
-}
-else {
-    console.log("Let's break this tie!");
-}
+
+
+
+
+
+
+            
+            
+
+
+
+
+
